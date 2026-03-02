@@ -1,8 +1,11 @@
-// SoftDistro : neMOODo - Core Engine
-console.log("🌊 neMOODo Engine Starting...");
+const { getDistroByMood } = require('./utils');
 
-const distribution = () => {
-    console.log("🚀 Initializing Software Distribution...");
-};
+console.log("🌊 SoftDistro : neMOODo Engine Starting...\n");
 
-distribution();
+// Example: User wants a "Development" vibe
+const myMood = "development"; 
+const distro = getDistroByMood(myMood);
+
+console.log(`[VIBE CHECK]: ${distro.vibe}`);
+console.log(`📦 Suggested Apps: ${distro.recommendations.join(", ")}`);
+console.log(`\n✅ ${distro.status}`);

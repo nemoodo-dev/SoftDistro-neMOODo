@@ -1,0 +1,15 @@
+{
+  "name": "softdistro-nemoodo",
+  "version": "1.0.0",
+  "description": "Next-gen software distribution ecosystem",
+  "main": "src/index.js",
+  "bin": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "build": "pkg . --targets node18-win-x64,node18-macos-x64,node18-linux-x64 --out-path dist"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "pkg": "^5.8.1"
+  }
+}

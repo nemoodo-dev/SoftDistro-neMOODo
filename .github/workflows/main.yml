@@ -1,25 +1,30 @@
-name: neMOODo-CI
+name: Build Executable 📦
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    tags:
+      - 'v*' # Jab bhi tum v1.1.0 jaisa tag daaloge, ye chalega
 
 jobs:
-  build:
+  createrelease:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    
-    - name: Run neMOODo Engine 🌊
-      run: node src/index.js
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      
+      - name: Install PKG
+        run: npm install -g pkg
+
+      - name: Build Executables
+        run: |
+          pkg src/index.js --targets node18-win-x64 --output dist/neMOODo.exe
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/neMOODo.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
